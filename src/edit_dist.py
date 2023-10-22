@@ -48,6 +48,7 @@ def parser(source, target, outfile="output.csv", processes=1):
     for a in progress(range(len(src_package_column))):
         first=str(src_package_column[a])
         newrow = []
+        newrow.append(str(src_package_column[a]).split())
         if processes == 1:
             for b in range(0, len(tgt_package_column)):
                 second = str(tgt_package_column[b])
@@ -87,6 +88,7 @@ def c_edit_distance(source, target, outfile, processes=1):
     for a in range(len(src_package_column)):
         first = str(src_package_column[a])
         newrow = []
+        newrow.append(str(src_package_column[a]).split())
         if processes == 1:
             for b in range(0, len(tgt_package_column)):
                 newrow.append(levenshtein(first, str(tgt_package_column[b])))
@@ -150,7 +152,8 @@ def edit_dist_worker(source, target, algorithm, outfile, threshold=2, processes=
         out_writer = csv.DictWriter(open(outfile, 'w'), fieldnames=out_fieldnames)
         out_writer.writeheader()
         for out_row in out_rows:
-            out_row = {k:v for k, v in out_row.items() if k == "pname" or int(v) <= threshold}
+            out_row = {k:v for k, v in out_row.items() if k == "pname" or
+                    (int(v) <= threshold and int(v)>0)}
             out_writer.writerow(out_row)
 
 

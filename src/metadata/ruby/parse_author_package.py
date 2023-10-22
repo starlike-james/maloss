@@ -4,12 +4,12 @@ name_site = {}
 with open('rubygems_metadata.txt') as json_file:
     data = json.load(json_file)
     for p1 in data['ruby_package']:
-	dep =  p1['dependencies']
+        dep =  p1['dependencies']
         if dep:
-	    for val in dep:
-		print val
+            for val in dep:
+                print val
         else:
-  	    print "list is empty..."
+            print "list is empty..."
         if p1['author'] in name_site:
             continue
         names = []
